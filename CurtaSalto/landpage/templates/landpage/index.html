@@ -1,0 +1,207 @@
+{% extends "landpage/base.html" %}
+{% block title %}CurtaSalto{% endblock %}
+{% block content %}				
+
+<!-- Banner -->
+
+
+</div>
+<div class="wrapper style2">
+
+		<img class="banner"  src = "/static/images/banner.jpg" alt="">
+
+
+</div>
+<div class="wrapper style4">
+		<section class="container">
+			<div class="row double">
+				<div class="6u">
+					<header class="major">
+						<h2>Sobre o curta salto</h2>
+						<span class="byline">DEVE ter um texto bacana aqui. Pois afinal, não queremos que as pessoas perdam tempo.</span>
+					</header>
+				</div>
+				<div class="6u">
+					<h3>Suspendisse dictum porta</h3>
+					<p>Donec leo. Vivamus fermentum nibh in augue. Praesent a lacus at urna congue rutrum. Nulla enim eros, porttitor eu, tempus id, varius non, nibh. Vestibulum imperdiet, magna nec eleifend semper augue mattis wisi maecenas ligula nunc lectus vestibulum euismod lacinia quam nisl.</p>
+					<a href="#" class="button">Acompanhe no Youtube</a>
+				</div>
+			</div>
+		</section>
+	</div>
+
+<!-- Section Two -->
+	<div class="wrapper style3">
+		<section class="container">
+			<header class="major">
+				<h2>Faltam:</h2>
+				<p id="demo"></p>
+				{% if LaunchDate %}
+				<input type="hidden" id="LaunchDateTime" name="LaunchDateTime" value={{ LaunchDate }}>
+				{% else %}
+				<h2>Não Programado</h2>
+				<input type="hidden" id="LaunchDateTime" name="LaunchDateTime" value="NotSet">
+				<p>O que vai rolar no evento</p>
+				{% endif %}
+				{% if ytLink %}
+					
+				<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+				<div class="embed-container"><iframe src="{{ytLink}}" frameborder="0" allowfullscreen=""></iframe></div>
+				</iframe>
+				{% else %}
+					<div><a class="image"><img class="image"  src = "/static/images/placeholder.png" alt=""></a><p>Aqui deveria ter um vídeo do youtube</p></div>
+				{% endif %}
+			</header>
+
+			<a href="#" class="button alt">Colocar um botão que faz alguma coisa</a>
+		</section>
+	</div>
+
+<!-- Section Three -->
+	<div class="wrapper style4">
+		<section class="container">
+			<header class="major">
+				<h2>Indicados pelo Juri</h2>
+				
+			</header>
+			<div class="row flush">
+				<div class="4u">
+					<ul class="special-icons">
+						<li>
+							<div>
+								<a href="#" class="image"><img class="image" src = "/static/images/placeholder_bg.png" alt=""></a>
+								<h3>Foco total</h3>
+								<p>Destinado a comunidade</p>
+							</div>
+						</li>
+						<li>
+							<div>
+								<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
+								<h3>Divulgação</h3>
+								<p>destinado ao sucesso</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="4u">
+					<ul class="special-icons">
+						<li>
+							<div>
+								<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
+								<h3>Nome PlaceHolder</h3>
+								<p>Colocar um texto aqui</p>
+							</div>
+						</li>
+					<li>
+						<div>
+							<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
+							<h3>filme placeholder</h3>
+							<p>colocar um texto aqui</p>
+						</div>
+					</ul>
+				</li>
+
+				</div>
+				<div class="4u">
+					<ul class="special-icons">
+						<li>
+						<div>
+							<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
+							<h3>Mais um nome</h3>
+							<p>Dizer aqui o que ele fez</p>
+							
+						</div>
+						</li>
+						<li>
+						<div>
+							<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
+							<h3>outro nome</h3>
+							<p>colocar um texto aqui</p>
+						</div>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</section>
+	</div>
+
+<!-- Team -->
+	<div class="wrapper style5">
+		<section id="team" class="container">
+			<header class="major">
+				<h2>Cras vitae metus aliNuam</h2>
+				<span class="byline">pulvinar mollis. Vestibulum sem magna, elementum vestibulum arcu</span>
+			</header>
+			<div class="row">
+				<div class="3u">
+					<a href="#"><img class="image"  src = "/static/images/placeholder.png" alt=""></a>
+					<h3>Molly Millions</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+				<div class="3u">
+					<a href="#" ><img class="image"  src = "/static/images/placeholder.png" alt=""></a>
+					<h3>Henry Dorsett Case</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+				<div class="3u">
+					<a href="#"><img class="image" src = "/static/images/placeholder.png" style="border-color: rgb(27, 27, 160)" alt=""></a>
+					<h3>Willis Corto</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+				<div class="3u">
+					<a href="#" ><img class="image"  src = "/static/images/placeholder.png" alt=""></a>
+					<h3>Linda Lee</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+
+
+	
+<script>
+	function resizeIframe(obj) {
+		obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+	}
+</script>
+
+<script>
+// Set the date we're counting down to
+
+var myDate = document.getElementById("LaunchDateTime").value;
+if (myDate != "NotSet")
+{
+	console.log('LaunchDate',myDate);
+	var countDownDate = new Date(myDate).getTime();
+
+	// Update the count down every 1 second
+	var x = setInterval(function() {
+
+		// Get today's date and time
+		var now = new Date().getTime();
+		
+		// Find the distance between now and the count down date
+		var distance = countDownDate - now;
+		
+		// Time calculations for days, hours, minutes and seconds
+		var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		
+		// Output the result in an element with id="demo"
+		document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+		+ minutes + "m " + seconds + "s ";
+		
+		// If the count down is over, write some text 
+		if (distance < 0) {
+		clearInterval(x);
+		document.getElementById("demo").innerHTML = "EXPIRED";
+		}
+	}, 1000);
+}
+</script>
+{% endblock %}

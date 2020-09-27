@@ -1,0 +1,272 @@
+{% extends "landpage/base.html" %}
+{% block title %}CurtaSalto{% endblock %}
+{% block content %}				
+
+</div>
+		<!-- Main -->
+			<div id="main" class="wrapper style4">
+
+				<!-- Content -->
+				<div id="content" class="container">
+					<section>
+						<header class="major">
+							<h2>Administração</h2>
+							<span class="byline">Embedar vídeos e gerar links para cadastro</span>
+						</header>
+					</section>
+				</div>
+			</div>
+		
+		<!-- Team -->
+			<div class="wrapper style4">
+				<section id="embed_yt" class="container">
+					<header class="major">
+						<h2>Link único de cadastro</h2>
+						<span class="byline">Adicionar ou Remover links de cadastro</span>
+					</header>
+					<div class="row">
+						<div class="3u">
+							
+							<input type="text" id="LinkToRemove" > 
+							<button class="button" onclick="RemoveAccess()">Remover Acesso</button>
+							<h3>Remover Acesso</h3>
+							<h3 id="RemoveFeedBack"></h3>
+							<p>Vai somente remover o acesso para o link ser utilizado novamente.</p>
+						</div>
+						<div class="3u">
+							<input type="text" id="LinkToClean" > 
+							<button class="button" onclick="CleanRegister()">Remover</button>
+							<h3 id="CleanFeedBack"></h3>
+							<h3>Remover link e cadastro</h3>
+							<p>Vai remover o link e, se foi feito cadastro de filme com esse link, será removido também.</p>
+						</div>
+						<div class="3u">
+							<input type="text" id="GenaratedLink" value="" disabled> 
+							<button class="button" onclick="GenerateUniqueLink()">Gerar</button> 
+							
+							<h3>Gerar Link avulso</h3>
+							<p>Gera um link com um dado aleatório.</p>
+						</div>
+						<div class="3u">
+							<label for="eventstart">Inicio Em:</label>
+							<input type="date" id="eventstart" name="eventstart">
+							<button class="button" onclick="UpdateLaunchDate()">Gerar</button> 
+							
+							<h3>Data de Lançamento</h3>
+							<p>Coloque a data e será gerado um cronometro do tipo CountDown na página inicial.</p>
+							<h3 id="RegisteredDate"></h3>
+						</div>
+						  
+					</div>
+				</section>
+			<div class="wrapper style4">
+				<section id="generate_link" class="container">
+					<header class="major">
+						<h2>Embedar Vídeo de youtube</h2>
+						<span class="byline">São 3 lugares que podem ter vídeos do youtuve. Você precisa saber qual local</span>
+					</header>
+					<div class="row">
+						<div class="form">
+							<form class="12u" enctype="multipart/form-data" method="post" action="/landpage/admin/">
+							  {% csrf_token %}
+							  
+							  {{form.as_p}}
+							  <input  align="center"  type="submit" value="Embedar" />
+							  
+				  
+							</form>
+							</div>
+					</div>
+				</section>
+			</div>
+			</div>
+
+<script>
+let xhr = new XMLHttpRequest();
+xhr.open('GET', '/landpage/admin/generate');
+
+// request state change event
+xhr.onreadystatechange = function() {
+
+  // request completed?
+  if (xhr.readyState !== 4) return;
+
+  if (xhr.status === 200) {
+    // request successful - show response
+	console.log(xhr.responseText);
+	var jsonResponse = JSON.parse(xhr.responseText);
+	document.getElementById("GenaratedLink").value = jsonResponse.unique_link;
+  }
+  else {
+    // request error
+    console.log('HTTP error', xhr.status, xhr.statusText);
+  }
+  xhr.open('GET', '/landpage/admin/generate');
+};
+
+
+function GenerateUniqueLink(){ 
+// start request
+	xhr.send();
+}
+</script>
+
+<script>
+	let xhru = new XMLHttpRequest();
+
+	
+	// request state change event
+	xhru.onreadystatechange = function() {
+	
+	  // request completed?
+	  if (xhru.readyState !== 4) return;
+	
+	  if (xhru.status === 200) {
+		// request successful - show response
+		console.log(xhr.responseText);
+		var jsonResponse = JSON.parse(xhru.responseText);
+
+		if (jsonResponse.fired == false) {
+			document.getElementById("RemoveFeedBack").innerHTML = jsonResponse.unique_link+ ' Foi removido';
+		}
+		else {
+			document.getElementById("RemoveFeedBack").innerHTML = jsonResponse.unique_link+ ' Não encontrado';
+		}
+	  }
+	  else {
+		// request error
+		console.log('HTTP error', xhru.status, xhru.statusText);
+	  }	  
+	};
+	
+	
+	function RemoveAccess(){ 
+	// start request
+		UniqueLink = document.getElementById("LinkToRemove").value;		
+
+		xhru.open('GET', '/landpage/admin/remove/' + UniqueLink);
+		xhru.send();
+	}
+</script>
+
+<script>
+	let xhrC = new XMLHttpRequest();
+
+	
+	// request state change event
+	xhrC.onreadystatechange = function() {
+	
+	  // request completed?
+	  if (xhrC.readyState !== 4) return;
+	
+	  if (xhrC.status === 200) {
+		// request successful - show response
+		console.log(xhr.responseText);
+		var jsonResponse = JSON.parse(xhrC.responseText);
+
+		if (jsonResponse.deleted == true) {
+			document.getElementById("CleanFeedBack").innerHTML = jsonResponse.unique_link+ ' Foi removido';
+		}
+		if (jsonResponse.fired == true) {
+			document.getElementById("CleanFeedBack").innerHTML = jsonResponse.unique_link+ ' Não encontrado';
+		}
+	  }
+	  else {
+		// request error
+		console.log('HTTP error', xhrC.status, xhrC.statusText);
+	  }	  
+	};
+	
+	
+	function CleanRegister(){ 
+	// start request
+		UniqueLink = document.getElementById("LinkToClean").value;		
+
+		xhrC.open('GET', '/landpage/admin/clean/' + UniqueLink);
+		xhrC.send();
+	}
+</script>
+
+<script>
+	let xhrYT = new XMLHttpRequest();
+	// request state change event
+	xhrYT.onreadystatechange = function() {
+	
+	  // request completed?
+	  if (xhrYT.readyState !== 4) return;
+	
+	  if (xhrYT.status === 200) {
+		// request successful - show response
+		console.log(xhr.responseText);
+		var jsonResponse = JSON.parse(xhrYT.responseText);
+
+		if (jsonResponse.deleted == true) {
+			document.getElementById("CleanFeedBack").innerHTML = jsonResponse.unique_link+ ' Foi removido';
+		}
+		if (jsonResponse.fired == true) {
+			document.getElementById("CleanFeedBack").innerHTML = jsonResponse.unique_link+ ' Não encontrado';
+		}
+	  }
+	  else {
+		// request error
+		console.log('HTTP error', xhrYT.status, xhrYT.statusText);
+	  }	  
+	};
+	
+	
+	function EmbedYTVideo(pageToEmbed, ytlink, ){ 
+	// start request
+		UniqueLink = document.getElementById("LinkToClean").value;		
+
+		xhrYT.open('GET', '/landpage/admin/clean/' + UniqueLink);
+		xhrYT.send();
+	}
+</script>
+
+
+<script>
+	let xhrD = new XMLHttpRequest();
+
+	
+	// request state change event
+	xhrD.onreadystatechange = function() {
+	
+	  // request completed?
+	  if (xhrD.readyState !== 4) return;
+	
+	  if (xhrD.status === 200) {
+		// request successful - show response
+		console.log(xhr.responseText);
+		var jsonResponse = JSON.parse(xhrD.responseText);
+		
+
+		if (jsonResponse.registered == true) {
+			document.getElementById("RegisteredDate").innerHTML = 'Sucesso!';
+		}
+		else
+		{
+			document.getElementById("RegisteredDate").innerHTML = 'Falhou!';
+		}
+	  }
+	  else {
+		// request error
+		console.log('HTTP error', xhrD.status, xhrD.statusText);
+	  }	  
+	};
+	
+	
+	function UpdateLaunchDate(){ 
+	// start request
+		
+		EventStart = document.getElementById("eventstart").value;		
+
+		xhrD.open('GET', '/landpage/admin/begindate/' + EventStart);
+		xhrD.send();
+	}
+</script>
+
+
+
+
+
+{% endblock %}

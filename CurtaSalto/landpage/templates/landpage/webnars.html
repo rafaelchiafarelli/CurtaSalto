@@ -1,0 +1,158 @@
+{% extends "landpage/base.html" %}
+{% block title %}CurtaSalto{% endblock %}
+{% block content %}				
+<!-- Section One -->
+	<div class="wrapper style3">
+		<section class="container">
+			<div class="row double">
+				<div class="12u">
+					<header class="major">
+						<h2>Webinar: Curta Salto em Casa</h2>
+						<span class="byline">O projeto Webinar Curta Salto Em Casa surgiu com a ideia de capacitar e abrir diálogo com a comunidade externa á Faculdade do CEUNSP sobre a área cinematográfica. Durante quatro lives que antecipam o 7° Curta  Salto, discutiremos sobre técnicas utilizadas, meio de ingresso e a rotina do estudo na área do Cinema.</span>
+					</header>
+				</div>
+
+			</div>
+		</section>
+	</div>
+
+<!-- Section Two -->
+	<div class="wrapper style2">
+		<section class="container">
+			
+				<header class="major">
+					<h2>{{eVideo.tittle}}</h2>
+				</header>
+				
+				<body>
+					<div class="row">
+						{% if eVideo %}
+						<div class="6u">
+							<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+							<div class="embed-container"><iframe src="https://www.youtube.com/embed/{{eVideo.ytLink}}" frameborder="0" allowfullscreen=""></iframe></div>
+							</iframe>
+						</div>
+						<div class="6u">
+							<p>{{eVideo.synopse}}</p>
+						</div>
+						{% else %}
+
+						
+					<div class="3u">
+						<a href="#" class="image"><img src="/static/images/placeholder.png" alt=""></a>
+						
+					</div>
+					<div class="3u">
+						<p>Texto explicando o que vai rolar nesse webnário</p>
+					</div>
+						{% endif %}
+				</div>
+				</body>
+				<footer>
+				<p>texto explicando como acessar</p>
+				<a href="#" class="button alt">Colocar um botão que faz alguma coisa</a>
+				</footer>
+			
+		</section>
+	</div>
+
+<!-- Section Three -->
+	<div class="wrapper style4">
+		<section class="container">
+			<header class="major">
+				<h2>Indicados pelo Juri</h2>
+				
+			</header>
+			<div class="row flush">
+				<div class="4u">
+					<ul class="special-icons">
+						<li>
+							<div>
+								<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+								<h3>Foco total</h3>
+								<p>Destinado a comunidade</p>
+							</div>
+						</li>
+						<li>
+							<div>
+								<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+								<h3>Divulgação</h3>
+								<p>destinado ao sucesso</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="4u">
+					<ul class="special-icons">
+						<li>
+							<div>
+								<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+								<h3>Nome PlaceHolder</h3>
+								<p>Colocar um texto aqui</p>
+							</div>
+						</li>
+						<div>
+							<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+							<h3>filme placeholder</h3>
+							<p>colocar um texto aqui</p>
+						</div>
+					</ul>
+				</div>
+				<div class="4u">
+					<ul class="special-icons">
+
+						<div>
+							<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+							<h3>Mais um nome</h3>
+							<p>Dizer aqui o que ele fez</p>
+							
+						</div>
+
+
+						<div>
+							<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+							<h3>outro nome</h3>
+							<p>colocar um texto aqui</p>
+						</div>
+
+					</ul>
+				</div>
+			</div>
+		</section>
+	</div>
+
+<!-- Team -->
+	<div class="wrapper style5">
+		<section id="team" class="container">
+			<header class="major">
+				<h2>Cras vitae metus aliNuam</h2>
+				<span class="byline">pulvinar mollis. Vestibulum sem magna, elementum vestibulum arcu</span>
+			</header>
+			<div class="row">
+				<div class="3u">
+					<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+					<h3>Molly Millions</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+				<div class="3u">
+					<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+					<h3>Henry Dorsett Case</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+				<div class="3u">
+					<a href="#" class="image"><img src = "/static/images/placeholder.png" style="border-color: rgb(27, 27, 160)" alt=""></a>
+					<h3>Willis Corto</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+				<div class="3u">
+					<a href="#" class="image"><img src = "/static/images/placeholder.png" alt=""></a>
+					<h3>Linda Lee</h3>
+					<p>In posuere eleifend odio quisque semper augue wisi ligula.</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+
+
+{% endblock %}

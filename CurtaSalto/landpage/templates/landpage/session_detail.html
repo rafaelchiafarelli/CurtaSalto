@@ -1,0 +1,112 @@
+{% extends "landpage/base.html" %}
+{% block title %}CurtaSalto{% endblock %}
+{% block content %}				
+<!-- Section One -->
+	<div class="wrapper style3">
+		<section class="container">
+			<div class="row double">
+				<div class="12u">
+					<header class="major">
+                        <h2>Curta Salto em Casa</h2>
+                    </header>
+                        <h2>{{session_name}}</h2>
+				</div>
+
+			</div>
+		</section>
+	</div>
+
+<!-- Section Two -->
+	<div class="wrapper style2">
+		<section class="container">
+			
+			<header class="major">
+				{% if movies%}
+				<h2>Filmes Selecionados</h2>
+				{% else %}
+				<h2>Nenhum filme nessa lista</h2>
+				{% endif %}
+			</header>
+			
+			<body>
+
+			<div class="row">
+				<div class="6u">
+					<h2>{{movie.tittle}} {{movie.pk}}</h2>
+					<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+					<div class="embed-container"><iframe src="https://www.youtube.com/embed/{{movie.youtube_link}}" frameborder="0" allowfullscreen=""></iframe></div>
+					</iframe>
+				</div>
+				<div class="3u">
+					<p>{{movie.synopse}}</p>
+				</div>
+				<div class="3u">
+					<form  onsubmit="return false" id={{movie.pk}}>
+						<fieldset>
+						{{form.as_ul}}
+						<input id="VoteButton" type="submit" name="submit" class="button" value="Votar!" onclick="Vote(user={{user.id}},movie_id={{movie.pk}})"/>
+						</fieldset>
+					</form>
+				</div>
+				
+			</div>
+
+			</body>
+			<footer>
+			
+			</footer>
+			
+		</section>
+	</div>
+</div>
+<script>
+	let xhru = new XMLHttpRequest();
+// request state change event
+xhru.onreadystatechange = function() {
+token = '{{csrf_token}}'
+  // request completed?
+  if (xhru.readyState !== 4) return;
+
+  if (xhru.status === 200) {
+	// request successful - show response
+	console.log(xhru.responseText);
+	var jsonResponse = JSON.parse(xhru.responseText);
+
+	if (jsonResponse.vote == 'success') {
+		console.log(xhru.responseText);
+		document.getElementById("VoteButton").value = 'Sucesso!';
+	}
+	else {
+		document.getElementById("VoteButton").value = ' Erro recarregue a página.';
+	}
+  }
+  else {
+	// request error
+	console.log('HTTP error', xhru.status, xhru.statusText);
+  }	  
+};
+
+
+function Vote(user, movie_id){
+// start request
+	var elements = document.getElementById(movie_id).elements;
+		var obj ={};
+		for(var i = 0 ; i < elements.length ; i++){
+			var item = elements.item(i);
+			obj[item.name] = item.value;
+		}
+	obj['movie'] = movie_id;
+	obj['user'] = user;
+	console.log("chegou aqui");
+	console.log(user);
+	formData=JSON.stringify(obj);
+	console.log(formData);
+	xhru.open('POST', '/landpage/sessions/vote/' + user + '/' + movie_id);
+	xhru.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	xhru.setRequestHeader("X-CSRFToken", token);
+
+	xhru.send(JSON.stringify(formData));
+}
+</script>
+
+{% endblock %}

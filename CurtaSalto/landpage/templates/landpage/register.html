@@ -1,0 +1,42 @@
+{% extends "landpage/base.html" %}
+{% block title %}Página de Login{% endblock %}
+
+{% block content %}
+</div><!-- Main -->
+  <div id="main" class="wrapper style4">
+<div id="content" class="container"></div>
+        
+      <section>
+        <header class="major">
+  {% if form.errors %}
+    <p>Seu nome ou senha estão incorretos. Tente novamente.</p>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Você precisa de privilégios para acessar essa página</p>
+    {% else %}
+      <p>Por favor insira o nome e senha</p>
+    {% endif %}
+  {% endif %}
+  
+
+<!-- Content -->
+
+        <h2>Cadastrar Filme</h2>
+        </header>
+        <div class="form">
+          <form class="6u" enctype="multipart/form-data" method="post" action="/landpage/unique_link/{{unique_link}}">
+            {% csrf_token %}
+            
+            {{form.as_p}}
+            <input  align="right"  type="submit" value="cadastrar" />
+            
+
+          </form>
+          </div>
+      </section>
+    </div>
+  </div>
+  
+{% endblock %}

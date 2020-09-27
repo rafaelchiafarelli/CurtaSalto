@@ -1,0 +1,51 @@
+{% extends "landpage/base.html" %}
+{% block title %}Página de Login{% endblock %}
+
+{% block content %}
+</div><!-- Main -->
+  <div id="main" class="wrapper style4">
+<div id="content" class="container"></div>
+        
+      <section>
+        <header class="major">
+  {% if form.errors %}
+    <p>Seu nome ou senha estão incorretos. Tente novamente.</p>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Você precisa de privilégios para acessar essa página</p>
+    {% else %}
+      <p>Por favor insira o nome e senha</p>
+    {% endif %}
+  {% endif %}
+  
+
+<!-- Content -->
+
+        <h2>Administração</h2>
+        </header>
+        <div class="form">
+          <form class="6u" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            
+            <table>
+          <tr>
+               <td><label for={{ form.username }} Usuário:</label><br>
+                {{ form.username }}</td>
+          </tr>
+          <tr>
+                <td><label for= {{ form.password }} Senha:</label><br>
+                {{ form.password }}</td>
+              </tr>
+            </table>
+            <input  align="left"  type="submit" value="login" />
+            <input type="hidden" name="next" value="{{ next }}" />
+
+          </form>
+          </div>
+      </section>
+    </div>
+  </div>
+  
+{% endblock %}
