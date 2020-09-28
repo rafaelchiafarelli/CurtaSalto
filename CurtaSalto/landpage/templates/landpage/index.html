@@ -6,7 +6,7 @@
 
 
 </div>
-<div class="wrapper style2">
+<div class="wrapper style6">
 
 		<img class="banner"  src = "/static/images/banner.jpg" alt="">
 
@@ -17,14 +17,14 @@
 			<div class="row double">
 				<div class="6u">
 					<header class="major">
-						<h2>Sobre o curta salto</h2>
-						<span class="byline">DEVE ter um texto bacana aqui. Pois afinal, não queremos que as pessoas perdam tempo.</span>
+						<h2> O Curta Salto é uma grande festa do audiovisual</h2>
+						<span class="byline"> O festival neste ano, prevê uma programação audiovisual gratuita e online, voltada para o público em geral. Workshop de especialização audiovisual, palestras com profissionais da área e premiações para estudantes de cinema.</span>
 					</header>
 				</div>
 				<div class="6u">
-					<h3>Suspendisse dictum porta</h3>
-					<p>Donec leo. Vivamus fermentum nibh in augue. Praesent a lacus at urna congue rutrum. Nulla enim eros, porttitor eu, tempus id, varius non, nibh. Vestibulum imperdiet, magna nec eleifend semper augue mattis wisi maecenas ligula nunc lectus vestibulum euismod lacinia quam nisl.</p>
-					<a href="#" class="button">Acompanhe no Youtube</a>
+					<h3>Este ano o Curta Salto é online</h3>
+					<p> Assista, curta e compartilhe! Tudo foi feito para que você se divirta em casa e com segurança. Aproveite!</p>
+					<a href="https://www.youtube.com/channel/UC2BzVoKxIepXpK1yLA8-kRA" class="button alt">Acompanhe no Youtube</a>
 				</div>
 			</div>
 		</section>
@@ -46,14 +46,13 @@
 				{% if ytLink %}
 					
 				<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
-				<div class="embed-container"><iframe src="{{ytLink}}" frameborder="0" allowfullscreen=""></iframe></div>
+				<div class="embed-container"><iframe src="https://www.youtube.com/embed/{{ytLink}}" frameborder="0" allowfullscreen=""></iframe></div>
 				</iframe>
 				{% else %}
-					<div><a class="image"><img class="image"  src = "/static/images/placeholder.png" alt=""></a><p>Aqui deveria ter um vídeo do youtube</p></div>
+					<div><a class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a></div>
 				{% endif %}
 			</header>
-
-			<a href="#" class="button alt">Colocar um botão que faz alguma coisa</a>
+			
 		</section>
 	</div>
 
@@ -61,68 +60,26 @@
 	<div class="wrapper style4">
 		<section class="container">
 			<header class="major">
-				<h2>Indicados pelo Juri</h2>
+				<h2>Confira Nossas Sessões!</h2>
 				
 			</header>
-			<div class="row flush">
-				<div class="4u">
-					<ul class="special-icons">
-						<li>
-							<div>
-								<a href="#" class="image"><img class="image" src = "/static/images/placeholder_bg.png" alt=""></a>
-								<h3>Foco total</h3>
-								<p>Destinado a comunidade</p>
-							</div>
-						</li>
-						<li>
-							<div>
-								<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
-								<h3>Divulgação</h3>
-								<p>destinado ao sucesso</p>
-							</div>
-						</li>
-					</ul>
-				</div>
-				<div class="4u">
-					<ul class="special-icons">
-						<li>
-							<div>
-								<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
-								<h3>Nome PlaceHolder</h3>
-								<p>Colocar um texto aqui</p>
-							</div>
-						</li>
-					<li>
-						<div>
-							<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
-							<h3>filme placeholder</h3>
-							<p>colocar um texto aqui</p>
-						</div>
-					</ul>
-				</li>
+			<body>
+				<div class="row">
+				{% for slot in sessions %}
+					{% if forloop.counter0|divisibleby:3 and not forloop.first %}<div class="row"></div>{% endif %}
+					<div class="4u">
+						<h2>{{slot.1}}</h2>  
+						<a href=/landpage/sessions/{{slot.0}} class="image">
+							<img class="image" src="/static/images/placeholder_bg.png" alt="">
+						</a>
 
+					</div>
+				{% endfor %}
 				</div>
-				<div class="4u">
-					<ul class="special-icons">
-						<li>
-						<div>
-							<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
-							<h3>Mais um nome</h3>
-							<p>Dizer aqui o que ele fez</p>
-							
-						</div>
-						</li>
-						<li>
-						<div>
-							<a href="#" class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a>
-							<h3>outro nome</h3>
-							<p>colocar um texto aqui</p>
-						</div>
-						</li>
+			</body>
+			<footer>
 
-					</ul>
-				</div>
-			</div>
+			</footer>
 		</section>
 	</div>
 
@@ -130,8 +87,8 @@
 	<div class="wrapper style5">
 		<section id="team" class="container">
 			<header class="major">
-				<h2>Cras vitae metus aliNuam</h2>
-				<span class="byline">pulvinar mollis. Vestibulum sem magna, elementum vestibulum arcu</span>
+				<h2>Desenvolvedores</h2>
+				<span class="byline">Time do Site</span>
 			</header>
 			<div class="row">
 				<div class="3u">

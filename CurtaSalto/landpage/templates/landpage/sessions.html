@@ -27,7 +27,7 @@
 						{% if forloop.counter0|divisibleby:3 and not forloop.first %}<div class="row"></div>{% endif %}
 						<div class="4u">
 							<h2>{{slot.1}}</h2>  
-							<a href=/landpage/sessions/{{slot}} class="image">
+							<a href=/landpage/sessions/{{slot.0}} class="image">
 								<img class="image" src="/static/images/placeholder.png" alt="">
 							</a>
 							<p>{{slot.2}}</p>

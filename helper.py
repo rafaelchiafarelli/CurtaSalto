@@ -37,19 +37,19 @@ def fix_settings(web_site, email, password_email, db_name, db_user, db_password)
         db_user = db_pwrd.replace('<DB_USER>',db_user)
         print(db_user)
     with open(FileName, "w") as f:
-        #f.write(db_user)
-        pass
+        f.write(db_user)
+        
 
 
 
 if __name__ == "__main__":
-    web_site = sys.argv[0]
-    print(sys.argv)
-    email  = sys.argv[1]
-    password_email = sys.argv[2]
-    db_name = sys.argv[3]
-    db_user = sys.argv[4]
+    web_site = sys.argv[1]
+    email  = sys.argv[2]
+    password_email = sys.argv[3]
+    db_name = sys.argv[4]
     db_password = sys.argv[5]
+    db_user = sys.argv[6]
+    
     fix_nginx()
     fix_settings(web_site=web_site,
                 email=email,

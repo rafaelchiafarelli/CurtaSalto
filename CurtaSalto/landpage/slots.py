@@ -1,7 +1,8 @@
 pages = [
     ('0','HomePage'),
     ('1','Webnars'),
-    ('2','Mostras')
+    ('2','Mostras'),
+    ('3','Premiação')
     ]
 
 slot_types = [

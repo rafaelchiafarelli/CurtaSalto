@@ -32,13 +32,20 @@ def index(request):
     else:
         lDate = None
     
+    slots = dict(slot_types)
+    prep = []
+    for item in slots:
+        prep.append((item,slots[item],slot_text[item]))
+
     if embeddedvideo is not None:
         eVideo = embeddedvideo.ytLink
     else:
         eVideo = None
     context = {
         'LaunchDate':lDate,
-        'ytLink':eVideo
+        'ytLink':eVideo,
+        'sessions':prep,
+
     }
     return render(request, 'landpage/index.html', context)
 
@@ -48,12 +55,29 @@ def admin(request):
     if request.method == 'POST':
         Embedded = EmbeddedYouTubeForm(request.POST)
         if Embedded.is_valid():
+            raw_yt_link = Embedded.cleaned_data['ytLink']
+            link_dicted = raw_yt_link.split('/')
+            if link_dicted is not None:
+                yt_part = link_dicted[-1]
+            else:
+                context = {'error':"link do youtube inválido"}
+                return render(request, 'landpage/404.html', context) 
+            
+            if '=' in yt_part:
+                context = {'error':"link do youtube inválido"}
+                return render(request, 'landpage/404.html', context) 
             m_obj = EmbedddVideo(tittle = Embedded.cleaned_data['tittle'],
                                 synopse = Embedded.cleaned_data['synopse'],
                                 category = Embedded.cleaned_data['category'],
                                 location = Embedded.cleaned_data['location'],
-                                ytLink= Embedded.cleaned_data['ytLink']
+                                ytLink= yt_part
                                 )
+            count = EmbedddVideo.objects.filter(location='1').count()
+
+            if count >= 4 and m_obj.location == '1':
+                print("deletring")
+                sv = EmbedddVideo.objects.filter(location='1').first().delete()
+                
             m_obj.save()
             return HttpResponseRedirect('/landpage/admin/')
     if request.method == 'GET':
@@ -66,7 +90,7 @@ def admin(request):
 
 def webinar(request):
 
-    embeddedvideo = EmbedddVideo.objects.filter(location = '1').last()
+    embeddedvideo = EmbedddVideo.objects.filter(location = '1') 
 
     if embeddedvideo is not None:
         eVideo = embeddedvideo
@@ -78,7 +102,15 @@ def webinar(request):
     return render(request, 'landpage/webnars.html', context)
 
 def awards(request):
-    context = {}
+    embeddedvideo = EmbedddVideo.objects.filter(location = '3').last()
+
+    if embeddedvideo is not None:
+        eVideo = embeddedvideo
+    else:
+        eVideo = None
+    context = {
+        'eVideo':eVideo
+    }
     return render(request, 'landpage/awards.html', context)
 
 
@@ -157,14 +189,6 @@ def unique(request, uniq_link):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         RegisterForm = MovieForm(request.POST,request.FILES, )
-        # check whether it's valid:
-        #https://youtu.be/TB-V60z7siU
-        #https://www.youtube.com/embed/TkbHbR3JYvM
-        #https://www.youtube.com/watch?v=U1smuC8k8zk
-        #https://youtu.be/U1smuC8k8zk
-        #https://youtu.be/7pSqk-XV2QM?t=618
-        #https://youtu.be/7pSqk-XV2QM
-        #https://www.youtube.com/watch?v=7pSqk-XV2QM&feature=youtu.be&t=618
         
         if RegisterForm.is_valid():
             raw_yt_link = RegisterForm.cleaned_data['youtube_link']

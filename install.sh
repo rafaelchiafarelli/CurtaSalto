@@ -17,20 +17,20 @@ fi
 
 #install dependencies
 install_python(){
-sudo apt update
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt install python3.8 python3-pip
-pip3 install --upgrade pip
-pip3 install update pip
+    sudo apt update
+    sudo apt install software-properties-common
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt install python3.8 python3-pip
+    pip3 install --upgrade pip
+    pip3 install update pip
 }
 
 create_venv(){
-python3 -m venv venv
-source venv/bin/activate
-pip3 install --upgrade pip
-pip3 install update pip
-pip3 install -r requirements.txt
+    python3 -m venv venv
+    source venv/bin/activate
+    pip3 install --upgrade pip
+    pip3 install update pip
+    pip3 install -r requirements.txt
 }
 
 install_nginx(){
@@ -52,4 +52,8 @@ config_site(){
 install_python
 create_venv
 config_site
+install_runner
 install_nginx
+
+
+
