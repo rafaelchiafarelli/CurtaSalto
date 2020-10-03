@@ -20,7 +20,11 @@ install_python(){
     sudo apt update
     sudo apt install software-properties-common
     sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt install python3.8 python3-pip
+    sudo apt update
+    sudo apt install python3.8 python3.8-dev python3.8-venv
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
+    sudo update-alternatives --set python3 /usr/bin/python3.8
     pip3 install --upgrade pip
     pip3 install update pip
 }
