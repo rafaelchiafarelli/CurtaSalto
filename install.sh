@@ -25,8 +25,8 @@ install_python(){
     sudo apt install python3.8-distutils
     sudo apt install python3.8-venv python3.8-dev
     python3.8 -m pip install --upgrade pip setuptools wheel
-    pip3 install --upgrade pip
-    pip3 install update pip
+    python3.8 -m pip install --upgrade pip
+    python3.8 -m pip install update pip
 }
 
 create_venv(){
@@ -50,7 +50,7 @@ install_runner(){
 }
 
 config_site(){
-    python3 helper.py $1 $2 $3 $4 $5 $6
+    python3.8 helper.py $1 $2 $3 $4 $5 $6
 }
 
 install_python
