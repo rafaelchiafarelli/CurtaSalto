@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = b'015fbe013b48d526e1de3b72351222eb57f30d68fa83b67d'
+SECRET_KEY = '<SECRET_KEY>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','www.curtasalto.com.br','e4612c125ec4.ngrok.io']
+ALLOWED_HOSTS = ['<HOST_TAG>']
 
 import socket
 
@@ -46,8 +46,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = False
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'curtasalto20202@gmail.com'
-EMAIL_HOST_PASSWORD = 'Cinema2020'
+EMAIL_HOST_USER = '<EMAIL_TAG>'
+EMAIL_HOST_PASSWORD = '<EMAIL_PASSWORD>'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -100,11 +100,11 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'curtasalto',
+        'NAME': '<DB_NAME>',
 
-        'USER': 'curtasalto',
+        'USER': '<DB_USER>',
 
-        'PASSWORD': 'curtasalto',
+        'PASSWORD': '<DB_PASSWORD>',
 
         'HOST': 'localhost',
 
@@ -144,7 +144,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
