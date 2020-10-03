@@ -1,7 +1,12 @@
 #!/bin/bash
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
+web_site=$1
+email=$2
+password_email=$3
+db_name=$4
+db_user=$5
+db_password=$6
 
 if [[ $# -eq 0 ]]; then
     echo "número de argumentos não bate"
@@ -20,17 +25,23 @@ install_python(){
     sudo apt update
     sudo apt install software-properties-common
     sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt install python3.8 python3-pip
-    pip3 install --upgrade pip
-    pip3 install update pip
+    sudo apt update
+    sudo apt install python3.8 python3.8-dev python3.8-venv
+    sudo apt install python3.8-distutils
+    sudo apt install python3.8-venv python3.8-dev
+    curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+    python3.8 get-pip.py
+    pip install --upgrade pip setuptools wheel
+    pip install --upgrade pip
+    pip install update pip
 }
 
 create_venv(){
-    python3 -m venv venv
+    python3.8 -m venv venv
     source venv/bin/activate
-    pip3 install --upgrade pip
-    pip3 install update pip
-    pip3 install -r requirements.txt
+    pip install --upgrade pip
+    pip install update pip
+    pip install -r requirements.txt
 }
 
 install_nginx(){
@@ -46,7 +57,7 @@ install_runner(){
 }
 
 config_site(){
-    python3 helper.py $1 $2 $3 $4 $5 $6
+    python3.8 helper.py web_site email password_email db_name db_user db_password
 }
 
 install_python
