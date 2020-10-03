@@ -29,17 +29,19 @@ install_python(){
     sudo apt install python3.8 python3.8-dev python3.8-venv
     sudo apt install python3.8-distutils
     sudo apt install python3.8-venv python3.8-dev
-    python3.8 -m pip install --upgrade pip setuptools wheel
-    python3.8 -m pip install --upgrade pip
-    python3.8 -m pip install update pip
+    curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+    python3.8 get-pip.py
+    pip install --upgrade pip setuptools wheel
+    pip install --upgrade pip
+    pip install update pip
 }
 
 create_venv(){
     python3.8 -m venv venv
     source venv/bin/activate
-    python3.8 -m pip install --upgrade pip
-    python3.8 -m pip install update pip
-    python3.8 -m pip install -r requirements.txt
+    pip install --upgrade pip
+    pip install update pip
+    pip install -r requirements.txt
 }
 
 install_nginx(){
