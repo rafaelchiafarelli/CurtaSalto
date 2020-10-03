@@ -5,8 +5,8 @@ from django.contrib.auth.models import User, Group
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.conf import settings as conf_settings
-from .models import UniqueLinks, Movie, EmbedddVideo, StartDate, Votes, TempUserID
-from .forms import MovieForm, EmbeddedYouTubeForm, VotingForrm
+from .models import UniqueLinks, Movie, EmbedddVideo, StartDate, Votes, TempUserID, EmbedddFilm
+from .forms import MovieForm, EmbeddedYouTubeForm, VotingForrm, EmbeddedFilmForm
 from django.contrib import messages 
 from .slots import pages,slot_types,slot_text
 import uuid
@@ -52,7 +52,9 @@ def index(request):
 @login_required
 def admin(request):
     context = {}
-    if request.method == 'POST':
+    
+    if request.method == 'POST' and "video_form_key" in request.POST:
+        print("video found")
         Embedded = EmbeddedYouTubeForm(request.POST)
         if Embedded.is_valid():
             raw_yt_link = Embedded.cleaned_data['ytLink']
@@ -75,16 +77,23 @@ def admin(request):
             count = EmbedddVideo.objects.filter(location='1').count()
 
             if count >= 4 and m_obj.location == '1':
-                print("deletring")
                 sv = EmbedddVideo.objects.filter(location='1').first().delete()
-                
             m_obj.save()
-            return HttpResponseRedirect('/landpage/admin/')
-    if request.method == 'GET':
-        EmbeddedForm = EmbeddedYouTubeForm()
-        context['form'] = EmbeddedForm
-    return render(request, 'landpage/admin.html', context)
 
+        return HttpResponseRedirect('/landpage/admin/')
+    if request.method == 'POST' and "film_form_key" in request.POST:
+        FormFilm = EmbeddedFilmForm(request.POST)
+        if FormFilm.is_valid():
+            m_obj = EmbedddFilm(**FormFilm.cleaned_data)
+            print(m_obj.__str__())
+            m_obj.save()
+        return HttpResponseRedirect('/landpage/admin/')
+    if request.method == 'GET':
+        EmbeddedYoutube = EmbeddedYouTubeForm()
+        context['video_form'] = EmbeddedYoutube
+        EmbeddedFilm = EmbeddedFilmForm()
+        context['film_form'] = EmbeddedFilm
+    return render(request, 'landpage/admin.html', context)
 
 
 
@@ -289,16 +298,21 @@ def session(request):
 def session_hall(request,selected_hall  ):
     slots = dict(slot_types)
     if str (selected_hall) in slots:
-        movies = Movie.objects.filter(category=selected_hall)
-        if movies is None:
+        embbeded_movies = EmbedddFilm.objects.filter(category=selected_hall)
+        if embbeded_movies is None:
             context = {
             }
             return render(request,'landpage/404.html',context)            
     else:
         context = {
         }
-        print("no slots")
         return render(request,'landpage/404.html',context)
+    movies = []
+    for mv in embbeded_movies:
+        expiration_date = mv.film.date_posted + datetime.timedelta(days = int(mv.valid_for) )
+        if expiration_date > datetime.datetime.now():
+            movies.append(mv)
+    
     context = {
         'movies':movies,
     }
@@ -334,7 +348,7 @@ def session_detail(request, selected_movie):
     
     
 def vote(request,user, movie_id):
-    print("got hehe")
+    
     if request.method == "POST":
         json_data = json.loads(json.loads(request.body.decode('utf-8')))
         if 'TempUserID' not in request.session:

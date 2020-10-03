@@ -1,8 +1,8 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Movie, EmbedddVideo, Votes
+from .models import Movie, EmbedddVideo, Votes, EmbedddFilm
 from phonenumber_field.formfields import PhoneNumberField
 
 class MovieForm(ModelForm):
@@ -21,6 +21,7 @@ class MovieForm(ModelForm):
         fields = ['tittle',
                 'synopse',
                 'category',
+                'participants',
                 'email',
                 'phone',
                 'proxy_name',
@@ -37,6 +38,7 @@ class MovieForm(ModelForm):
                 'tittle':'Titulo',
                 'synopse':'Sinopse',
                 'category':'Mostra',
+                'participants':'Participantes',
                 'email':'email',
                 'phone':'Telefone',
                 'proxy_name':'Responsável',
@@ -52,6 +54,7 @@ class MovieForm(ModelForm):
                 'tittle':'Titulo do filme',
                 'synopse':'Sinopse do filme',
                 'category':'Mostra',
+                'participants':'Estudantes participantes',
                 'email':'email',
                 'phone':'telefone (WhatsApp)',
                 'proxy_name':'Nome do responsável',
@@ -67,6 +70,7 @@ class MovieForm(ModelForm):
                 'tittle':{'required': 'Obrigatório'},
                 'synopse':{'required': 'Obrigatório'},
                 'category':{'required': 'Obrigatório'},
+                'participants':{'required':'Obrigatório'},
                 'email':{'required': 'Obrigatório'},
                 'phone':{'required': 'Obrigatório'},
                 'proxy_name':{'required': 'Obrigatório'},
@@ -89,13 +93,15 @@ class EmbeddedYouTubeForm(ModelForm):
                 'synopse',
                 'category',
                 'ytLink',
-                'location']
+                'location'
+                ]
         labels = {
                 'tittle':'Titulo',
                 'synopse':'Synopse',
                 'category':'Mostra',
                 'ytLink':'Link',
                 'location':'Local'
+                
 
         }
         help_texts = {
@@ -103,17 +109,42 @@ class EmbeddedYouTubeForm(ModelForm):
                 'synopse':'Sinopse do conteúdo',
                 'category':'Mostra',
                 'ytLink':'Link para o vídeo no youtube',
-                'location':'Local aonde será mostrado esse vídeo',
+                'location':'Local aonde será mostrado esse vídeo'
                 }
         error_messages = {
                 'tittle':{'required': 'Obrigatório'},
                 'synopse':{'required': 'Obrigatório'},
                 'category':{'required': 'Obrigatório'},
                 'ytLink':{'required': 'Obrigatório'},
-                'location':{'required': 'Obrigatório'},
-
+                'location':{'required': 'Obrigatório'}
                 }
 
+class EmbeddedFilmForm(ModelForm):
+        class Meta:
+                model = EmbedddFilm
+                fields = [
+                        'film',
+                        'category',
+                        'valid_for'
+                        ]
+                labels = {
+                        'film':'Selecione o filme',
+                        'category':'Tipo de mostra',
+                        'valid_for':'Dias de exibição'
+
+                }
+                help_texts = {
+                        'film':'',
+                        'category':'Mostra',
+                        'valid_for':'Ficará exposto durante essa quantidade de dias'
+
+                        }
+                error_messages = {
+                        'film':{'required': 'Obrigatório'},
+                        'category':{'required': 'Obrigatório'},
+                        'valid_for':{'required':'Obrigatório'}
+                        }
+        film = forms.ModelChoiceField(queryset=Movie.objects.all())
 
 
 class VotingForrm(ModelForm):

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from .slots import pages, slot_types, grades
+from .slots import pages, slot_types, grades, days
 from phonenumber_field.modelfields import PhoneNumberField
 # Create your models here.
 
@@ -15,6 +15,7 @@ class Movie(models.Model):
     tittle = models.CharField(max_length=100,blank = False, null = False)
     synopse = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
+    participants = models.TextField(blank=True, null=True)
     category = models.CharField(choices=slot_types,max_length=100,blank = False, null = False)
     email =  models.EmailField(max_length=254, blank = False, null = False)
     phone = PhoneNumberField(max_length=100,blank = False, null = False)
@@ -27,6 +28,7 @@ class Movie(models.Model):
     local_display_auth = models.BooleanField(blank = False, null = False)
     social_media_auth  = models.BooleanField(blank = False, null = False)
     link = models.ForeignKey(UniqueLinks, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.tittle
@@ -36,8 +38,17 @@ class EmbedddVideo(models.Model):
     ytLink = models.CharField(max_length=200,blank = False, null = False)
     location = models.CharField(choices=pages,max_length=25,blank = True, null = True)
     synopse = models.TextField(blank = True, null = True)
-    category = models.CharField(choices=slot_types,max_length=100,blank = True, null = True)
+    category = models.CharField(choices=slot_types,max_length=100,blank = True, null = True)    
+    def __str__(self):
+        return self.tittle
+    
 
+class EmbedddFilm(models.Model):
+    film = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    category = models.CharField(choices=slot_types,max_length=25,blank = False, null = False)
+    valid_for = models.CharField(choices=days,max_length=25,blank = False, null = False)
+    def __str__(self):
+        return self.film.__str__()
 
 class StartDate(models.Model):
     LaunchDate = models.DateTimeField(blank = True, null = True)

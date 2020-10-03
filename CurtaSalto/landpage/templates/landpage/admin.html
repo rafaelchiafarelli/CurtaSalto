@@ -61,21 +61,41 @@
 				</section>
 			<div class="wrapper style4">
 				<section id="generate_link" class="container">
-					<header class="major">
-						<h2>Embedar Vídeo de youtube</h2>
-						<span class="byline">São 3 lugares que podem ter vídeos do youtuve. Você precisa saber qual local</span>
-					</header>
+
 					<div class="row">
+
+						<div class="6u">
+							<header class="major">
+								<h2>Embedar Vídeo de youtube</h2>
+								<span class="byline">São 3 lugares que podem ter vídeos do youtuve. Você precisa saber qual local</span>
+							</header>
 						<div class="form">
-							<form class="12u" enctype="multipart/form-data" method="post" action="/landpage/admin/">
+							<form name='video_form' class="6u" enctype="multipart/form-data" method="post" action="/landpage/admin/">
 							  {% csrf_token %}
 							  
-							  {{form.as_p}}
-							  <input  align="center"  type="submit" value="Embedar" />
+							  {{video_form.as_p}}
+							  <input  align="center" name="video_form_key"  type="submit" value="Video" />
 							  
 				  
 							</form>
-							</div>
+						</div>
+						</div>
+						<div class="6u">
+							<header class="major">
+								<h2>Embedar Filme</h2>
+								<span class="byline">Lembre-se de colocar o fime na categoria correta.</span>
+							</header>
+						<div class="form">
+							<form name='film_form' class="6u" enctype="multipart/form-data" method="post" action="/landpage/admin/">
+								{% csrf_token %}
+								
+								{{film_form.as_p}}
+								<input  align="center" name="film_form_key" type="submit" value="Filme" />
+								
+					
+							</form>
+						</div>
+						</div>
 					</div>
 				</section>
 			</div>
