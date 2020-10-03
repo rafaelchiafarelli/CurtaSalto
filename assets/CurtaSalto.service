@@ -4,11 +4,11 @@ After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/home/skiafa/workspace/CurtaSalto/CurtaSalto
-ExecStart=/home/skiafa/workspace/CurtaSalto/venv/bin/gunicorn \
+WorkingDirectory=<HOME_TAG>/CurtaSalto
+ExecStart=<HOME_TAG>/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
-          --bind unix:/home/skiafa/workspace/CurtaSalto/CurtaSalto/CurtaSalto.sock \
+          --bind unix:<HOME_TAG>/CurtaSalto/CurtaSalto.sock \
           CurtaSalto.wsgi:application
 
 [Install]
