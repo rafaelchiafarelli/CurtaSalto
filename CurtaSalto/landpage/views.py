@@ -263,7 +263,7 @@ def unique(request, uniq_link):
             subject = 'CurtaSalto - Obrigado por cadastrar o filme'
             message = plain_message
             recepient = RegisterForm.cleaned_data['email']
-            
+            recepient.append('kimeracineama@gmail.com')
             
             data = send_mail(subject=subject, 
                 message=message,
