@@ -19,7 +19,10 @@ if [[ $# -eq 0 ]]; then
     exit -1
 fi
 
+install_postgresql(){
 
+    sudo apt install libpq-dev postgresql postgresql-contrib
+}
 #install dependencies
 install_python(){
     sudo apt update

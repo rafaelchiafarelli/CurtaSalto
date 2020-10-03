@@ -11,9 +11,9 @@ slot_types = [
     ('2','Ór Concour')
     ]
 slot_text = {
-    '0':"Esse é o texto para a mostra de alunos atuais",
-    '1':"Esse é o texto para a mostra de alunos antigos",
-    '2':"Esse é o texto para a mostra de ór concour"
+    '0':"",
+    '1':"",
+    '2':""
 }
 grades = [
     ('0','0'),
