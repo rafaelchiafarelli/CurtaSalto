@@ -57,7 +57,7 @@ install_runner(){
 }
 
 config_site(){
-    python3.8 helper.py web_site email password_email db_name db_user db_password
+    python3.8 helper.py $web_site $email $password_email $db_name $db_user $db_password
 }
 
 install_python
