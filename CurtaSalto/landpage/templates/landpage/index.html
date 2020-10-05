@@ -24,99 +24,11 @@
 				<div class="6u">
 					<h3>Este ano o Curta Salto é online</h3>
 					<p> Assista, curta e compartilhe! Tudo foi feito para que você se divirta em casa e com segurança. Aproveite!</p>
-					<a href="https://www.youtube.com/channel/UC2BzVoKxIepXpK1yLA8-kRA" class="button alt">Acompanhe no Youtube</a>
+					<a href="https://www.youtube.com/channel/UC2BzVoKxIepXpK1yLA8-kRA"  target="_blank" class="button alt">Acompanhe no Youtube</a>
 				</div>
 			</div>
 		</section>
 	</div>
-
-<!-- Section Two -->
-	<div class="wrapper style3">
-		<section class="container">
-			<header class="major">
-				<h2>Faltam:</h2>
-				<p id="demo"></p>
-				{% if LaunchDate %}
-				<input type="hidden" id="LaunchDateTime" name="LaunchDateTime" value={{ LaunchDate }}>
-				{% else %}
-				<h2>Não Programado</h2>
-				<input type="hidden" id="LaunchDateTime" name="LaunchDateTime" value="NotSet">
-				
-				{% endif %}
-				{% if ytLink %}
-					
-				<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
-				<div class="embed-container"><iframe src="https://www.youtube.com/embed/{{ytLink}}" frameborder="0" allowfullscreen=""></iframe></div>
-				</iframe>
-				{% else %}
-					<div><a class="image"><img class="image"  src = "/static/images/placeholder_bg.png" alt=""></a></div>
-				{% endif %}
-			</header>
-			
-		</section>
-	</div>
-
-<!-- Section Three -->
-	<div class="wrapper style4">
-		<section class="container">
-			<header class="major">
-				<h2>Confira Nossas Sessões!</h2>
-				
-			</header>
-			<body>
-				<div class="row">
-				{% for slot in sessions %}
-					{% if forloop.counter0|divisibleby:3 and not forloop.first %}<div class="row"></div>{% endif %}
-					<div class="4u">
-						<h2>{{slot.1}}</h2>  
-						<a href=/landpage/sessions/{{slot.0}} class="image">
-							<img class="image" src="/static/images/placeholder_bg.png" alt="">
-						</a>
-
-					</div>
-				{% endfor %}
-				</div>
-			</body>
-			<footer>
-
-			</footer>
-		</section>
-	</div>
-
-<!-- Team -->
-	<div class="wrapper style5">
-		<section id="team" class="container">
-			<header class="major">
-				<h2>Desenvolvedores</h2>
-				<span class="byline">Time do Site</span>
-			</header>
-			<div class="row">
-				<div class="3u">
-					<a href="#"><img class="image"  src = "/static/images/placeholder.png" alt=""></a>
-					<h3>Rafael Toschi Chiafarelli</h3>
-					<p>FullStack Developer.</p>
-				</div>
-				<div class="3u">
-					<a href="#" ><img class="image"  src = "/static/images/placeholder.png" alt=""></a>
-					<h3>Larissa</h3>
-					<p>WebDesigner e UX.</p>
-				</div>
-				<div class="3u">
-					<a href="#"><img class="image" src = "/static/images/placeholder.png" style="border-color: rgb(27, 27, 160)" alt=""></a>
-					<h3>Rafael Mascarenhas</h3>
-					<p>Tester.</p>
-				</div>
-				<div class="3u">
-					<a href="#" ><img class="image"  src = "/static/images/placeholder.png" alt=""></a>
-					<h3>Gustavo</h3>
-					<p>Comunicação.</p>
-				</div>
-			</div>
-		</section>
-	</div>
-
-
-
 
 	
 <script>
