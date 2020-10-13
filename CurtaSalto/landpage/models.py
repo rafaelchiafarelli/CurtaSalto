@@ -59,12 +59,13 @@ class TempUserID(models.Model):
 class Votes(models.Model):
     user_id = models.ForeignKey(TempUserID, on_delete=models.CASCADE)
     vote = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    photografy = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
-    art_design = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
-    picture = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
-    acting = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
-    sound_desing = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
-    adaptation = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
+    general_score = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
+    #photografy = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
+    #art_design = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
+    #picture = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
+    #acting = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
+    #sound_desing = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
+    #adaptation = models.CharField(choices=grades,max_length=100,blank = False, null = False, default='0')
     
 
 

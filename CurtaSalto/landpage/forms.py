@@ -152,17 +152,7 @@ class VotingForrm(ModelForm):
     class Meta:
         model = Votes
         fields = [
-                'photografy',
-                'art_design',
-                'picture',
-                'acting',
-                'sound_desing',
-                'adaptation']
+		'general_score']
         labels = {
-                'photografy':'fotografia',
-                'art_design':'direção de arte',
-                'picture':'nota geral do filme',
-                'acting':'atuação',
-                'sound_desing':'direção de som',
-                'adaptation':'roteiro',
+                'general_score':'Nota do Filme'
         }

@@ -214,6 +214,7 @@ def unique(request, uniq_link):
 
             m_obj = Movie(tittle = RegisterForm.cleaned_data['tittle'],
                             synopse = RegisterForm.cleaned_data['synopse'],
+			    participants = RegisterForm.cleaned_data['participants'],
                             category = RegisterForm.cleaned_data['category'],
                             email = RegisterForm.cleaned_data['email'],
                             phone = RegisterForm.cleaned_data['phone'],
@@ -238,13 +239,14 @@ def unique(request, uniq_link):
             phone = RegisterForm.cleaned_data['phone']
             proxy_name = RegisterForm.cleaned_data['proxy_name']
             poster_file = RegisterForm.cleaned_data['poster_file']
+            participants = RegisterForm.cleaned_data['participants']
             picture_1 = RegisterForm.cleaned_data['picture_1']
             picture_2 = RegisterForm.cleaned_data['picture_2']
             picture_3 = RegisterForm.cleaned_data['picture_3']
             youtube_link = RegisterForm.cleaned_data['youtube_link']
             local_display_auth = RegisterForm.cleaned_data['local_display_auth']
             social_media_auth = RegisterForm.cleaned_data['social_media_auth']
-            plain_message = "Titulo do filme: {}\r\n Sinopse: {}\r\n Sessão: {}\r\n email: {}\r\n telefone: {}\r\n Nome do responsável: {}\r\n Poster: {}\r\n Foto 1:{}\r\n Foto 2:{}\r\n Foto 3:{}\r\n  Link do Youtube: {} \r\n Autorização para mostrar no site: {}\r\n Autorização para compartilhamento: {} \r\n".format(
+            plain_message = "Titulo do filme: {}\r\n Sinopse: {}\r\n Sessão: {}\r\n email: {}\r\n telefone: {}\r\n Nome do responsável: {}\r\n Poster: {}\r\n Participantes: {}\r\n Foto 1:{}\r\n Foto 2:{}\r\n Foto 3:{}\r\n  Link do Youtube: {} \r\n Autorização para mostrar no site: {}\r\n Autorização para compartilhamento: {} \r\n".format(
                 tittle,
                 synopse,
                 category,
@@ -252,6 +254,7 @@ def unique(request, uniq_link):
                 phone,
                 proxy_name,
                 poster_file,
+		participants,
                 picture_1,
                 picture_2,
                 picture_3,
@@ -263,14 +266,13 @@ def unique(request, uniq_link):
             subject = 'CurtaSalto - Obrigado por cadastrar o filme'
             message = plain_message
             recepient = RegisterForm.cleaned_data['email']
-            recepient.append('kimeracineama@gmail.com')
             
             data = send_mail(subject=subject, 
                 message=message,
                 from_email=EMAIL_HOST_USER, 
                 auth_user= EMAIL_HOST_USER, 
                 auth_password = EMAIL_HOST_PASSWORD, 
-                recipient_list=[recepient],
+                recipient_list=[recepient,'kimerafilmes2020@gmail.com'],
                 fail_silently = False)
             return redirect('/')
         else:
@@ -312,9 +314,9 @@ def session_hall(request,selected_hall  ):
         expiration_date = mv.film.date_posted + datetime.timedelta(days = int(mv.valid_for) )
         if expiration_date > datetime.datetime.now():
             movies.append(mv)
-    
     context = {
         'movies':movies,
+	'session_name':slots[str(selected_hall)],
     }
     return render(request, 'landpage/session_hall.html', context)
 
@@ -322,7 +324,7 @@ def session_hall(request,selected_hall  ):
 
 def session_detail(request, selected_movie):
     slots = dict(slot_types)
-    movie = Movie.objects.get(id=selected_movie)
+    movie = Movie.objects.get(pk=selected_movie)
 
     if movie is not None:
         form = VotingForrm()
@@ -359,8 +361,10 @@ def vote(request,user, movie_id):
         print(json_data["movie"])
         MovieToVote = Movie.objects.get(pk=int(json_data["movie"]))
         if MovieToVote is not None:
-            voted_to = Votes(user_id=ThisUser,vote=MovieToVote)
-            voted_to.save()
+            voted_to,created = Votes.objects.get_or_create(user_id=ThisUser,
+				vote=MovieToVote)
+            voted_to.general_score = json_data['general_score']
+            voted_to.save(update_fields = ['general_score'])
             context = {'vote':'success'}
         else:
             context = {'vote':'fail'}
