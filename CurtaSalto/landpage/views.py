@@ -214,6 +214,7 @@ def unique(request, uniq_link):
 
             m_obj = Movie(tittle = RegisterForm.cleaned_data['tittle'],
                             synopse = RegisterForm.cleaned_data['synopse'],
+			    participants = RegisterForm.cleaned_data['participants'],
                             category = RegisterForm.cleaned_data['category'],
                             email = RegisterForm.cleaned_data['email'],
                             phone = RegisterForm.cleaned_data['phone'],
@@ -263,14 +264,13 @@ def unique(request, uniq_link):
             subject = 'CurtaSalto - Obrigado por cadastrar o filme'
             message = plain_message
             recepient = RegisterForm.cleaned_data['email']
-            recepient.append('kimeracineama@gmail.com')
             
             data = send_mail(subject=subject, 
                 message=message,
                 from_email=EMAIL_HOST_USER, 
                 auth_user= EMAIL_HOST_USER, 
                 auth_password = EMAIL_HOST_PASSWORD, 
-                recipient_list=[recepient],
+                recipient_list=[recepient,'kimerafilmes2020@gmail.com'],
                 fail_silently = False)
             return redirect('/')
         else:
@@ -312,9 +312,9 @@ def session_hall(request,selected_hall  ):
         expiration_date = mv.film.date_posted + datetime.timedelta(days = int(mv.valid_for) )
         if expiration_date > datetime.datetime.now():
             movies.append(mv)
-    
     context = {
         'movies':movies,
+	'session_name':slots[str(selected_hall)],
     }
     return render(request, 'landpage/session_hall.html', context)
 
@@ -322,7 +322,7 @@ def session_hall(request,selected_hall  ):
 
 def session_detail(request, selected_movie):
     slots = dict(slot_types)
-    movie = Movie.objects.get(id=selected_movie)
+    movie = Movie.objects.get(pk=selected_movie)
 
     if movie is not None:
         form = VotingForrm()
@@ -359,7 +359,15 @@ def vote(request,user, movie_id):
         print(json_data["movie"])
         MovieToVote = Movie.objects.get(pk=int(json_data["movie"]))
         if MovieToVote is not None:
-            voted_to = Votes(user_id=ThisUser,vote=MovieToVote)
+            voted_to = Votes(user_id=ThisUser,
+				vote=MovieToVote,
+				photografy = json_data['photografy'],
+		                art_design = json_data['art_design'],
+		                picture = json_data['picture'],
+				acting = json_data['acting'],
+		                sound_desing = json_data['sound_desing'],
+		                adaptation = json_data['adaptation']
+				)
             voted_to.save()
             context = {'vote':'success'}
         else:

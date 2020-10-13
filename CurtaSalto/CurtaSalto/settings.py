@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = <SECRET_KEY>
+SECRET_KEY = b'a1616a6f22a16cfd6a4a2e0ae2d0666c1616e9cb30314d0f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['<HOST_TAG>']
+ALLOWED_HOSTS = ['www.estudiopoliteama.com.br']
 
 import socket
 
@@ -42,12 +42,12 @@ LOGIN_REDIRECT_URL = '/landpage/admin'
 # Application definition
 
 #DataFlair
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = False
+EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '<EMAIL_TAG>'
-EMAIL_HOST_PASSWORD = '<EMAIL_PASSWORD>'
+EMAIL_HOST_USER = "curtasalto2020@gmail.com"
+EMAIL_HOST_PASSWORD = "uiwokdeipxtathkc"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -100,11 +100,11 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': '<DB_NAME>',
+        'NAME': 'curta',
 
-        'USER': '<DB_USER>',
+        'USER': 'curta',
 
-        'PASSWORD': '<DB_PASSWORD>',
+        'PASSWORD': 'curta',
 
         'HOST': 'localhost',
 

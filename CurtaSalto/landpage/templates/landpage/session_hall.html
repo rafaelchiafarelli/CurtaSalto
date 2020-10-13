@@ -37,18 +37,21 @@
 						  border: 1px solid #ddd;
 						  border-radius: 4px;
 						  padding: 5px;
-						  max-width: 100%;
+						  width: 100%;
+						  height= auto;
 						}
 						
 						img:hover {
 						  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 						}
 					</style>
+					<div class="row">
 					{% for movie in movies %}
-						{% if forloop.counter0|divisibleby:3 and not forloop.first %}<div class="row"></div>{% endif %}
+						{% if forloop.counter0|divisibleby:4 and not forloop.first %}</div><div class="row">{% endif %}
 						<div class="3u">
-							<h2>{{movie.tittle}}</h2>
-							<a href="/landpage/sessions/watch/{{movie.pk}}" ><img src = {{movie.poster_file.url}} alt=""></a>
+							<h2>{{movie.film.tittle}}</h2>
+							<a href="/landpage/sessions/watch/{{movie.film.pk}}" >
+							<img src = /media/{{movie.film.poster_file}} alt=""></a>
 						</div>
 					{% endfor %}
 				</div>

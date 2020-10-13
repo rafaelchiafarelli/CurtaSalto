@@ -6,9 +6,8 @@ pages = [
     ]
 
 slot_types = [
-    ('0','Alunos Atuais'),
-    ('1','Alunos Antigos'),
-    ('2','Ór Concour')
+    ('0','Mostra Kimera Filmes'),
+    ('1','Mostra Convidados')
     ]
 slot_text = {
     '0':"",
@@ -26,6 +25,7 @@ grades = [
     ('7','7'),
     ('8','8'),
     ('9','9'),
+    ('10','10'),
     
     ]
 days = [
