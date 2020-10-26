@@ -6,8 +6,8 @@ pages = [
     ]
 
 slot_types = [
-    ('0','Mostra Kimera Filmes'),
-    ('1','Mostra Convidados')
+    ('0','Mostra Salto'),
+    ('1','Mostra Brasil')
     ]
 slot_text = {
     '0':"",
