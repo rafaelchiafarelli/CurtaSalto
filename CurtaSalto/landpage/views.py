@@ -16,6 +16,10 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import json
+from django.core import serializers
+from django.db.models import Count, Sum, IntegerField, Avg
+from django.db.models.functions import Cast
+
 # Create your views here.
 
 
@@ -371,16 +375,60 @@ def vote(request,user, movie_id):
         return JsonResponse(context)
 
 
+def VotesInMovie(request, movie_id):
+    VotedMovie = Votes.objects.filter(vote=movie_id).count()
+    return JsonResponse({'counted':VotedMovie})
+
+def GetVotesGrouped(request):
+    tally = Votes.objects.values('vote').annotate(n_vote = Count('vote')).order_by('-n_vote')    
+    final_tally = {}
+    tittles = []
+    number_of_votes = []
+    for film in tally:
+        VotedFilm = EmbedddFilm.objects.get(film=film['vote'])
+
+        tittles.append(VotedFilm.film.__str__())
+        number_of_votes.append(film['n_vote'])
+
+    final_tally['tittles'] = tittles
+    final_tally['votes_counted'] = number_of_votes
+
+    return JsonResponse(final_tally, safe = False)
 
 
+def AllVotes(request):
+    tally = Votes.objects.values('vote').annotate(sum_votes = Sum(Cast('general_score', IntegerField()))).order_by('-sum_votes')
+    final_tally = {}
+    tittles = []
+    added_votes = []
+    for film in tally:
+        VotedFilm = EmbedddFilm.objects.get(film=film['vote'])
+        tittles.append(VotedFilm.film.__str__())
+        added_votes.append(film['sum_votes'])
+    final_tally['tittles'] = tittles
+    final_tally['sum_votes'] = added_votes
+    
+    return JsonResponse(final_tally, safe=False)
+
+def AvgVotes(request):
+    avg_tally = Votes.objects.values('vote').annotate(avg_votes = Avg(Cast('general_score', IntegerField()))).order_by('-avg_votes')
+    avereage = []
+    tittles = []
+    final_tally = {}
+    for avg in avg_tally:
+        VotedFilm = EmbedddFilm.objects.get(film=avg['vote'])
+        tittles.append(VotedFilm.film.__str__())
+        avereage.append(avg['avg_votes'])
+
+    final_tally['tittles'] = tittles
+    final_tally['avg'] = avereage
+    return JsonResponse(final_tally, safe=False)
 
 
+def votes(request):
 
 
-
-
-
-
+    return render(request, 'landpage/voting_tally.html',{})
 
 
 

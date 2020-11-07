@@ -19,5 +19,11 @@ urlpatterns = [
     path('home/', views.index, name='home'),
     path('awards/', views.awards, name='awards'),
     path('unique_link/<slug:uniq_link>', views.unique, name='unique_link'),
+    path('vote/<int:movie_id>', views.VotesInMovie, name='voted_group'),
+    path('votespermovie/', views.GetVotesGrouped, name='votes_count'),
+    path('voted/', views.AllVotes, name='all-voted'),
+    path('avg_votes/', views.AvgVotes, name='avg-voted'),
+    path('votes/', views.votes, name='votes'),
+    
 ]
 

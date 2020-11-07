@@ -1,0 +1,181 @@
+{% extends "landpage/base.html" %}
+{% block title %}CurtaSalto{% endblock %}
+<script>
+    {% block jquery %}
+    var endpoint = '/landpage/avg_votes/'
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        cLabels = data.tittles
+        cData = data.avg
+        var ctx = document.getElementById('cVotes').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: cLabels,
+                datasets: [{
+                    label: 'Média dos votos',
+                    data: cData,
+                    backgroundColor: 
+                        'rgba(54, 162, 235, 0.2)',
+                    borderColor: 
+                        'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }, 
+    error: function(error_data){
+        console.log(error_data)
+    }
+})
+
+var endpoint = '/landpage/voted/'
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        cLabels = data.tittles
+        cData = data.sum_votes
+        var ctx = document.getElementById('cAddedVotes').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: cLabels,
+                datasets: [{
+                    label: 'Soba de todos os votos',
+                    data: cData,
+                    backgroundColor: 
+                        'rgba(54, 162, 235, 0.2)',
+                    borderColor: 
+                        'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }, 
+    error: function(error_data){
+        console.log(error_data)
+    }
+})
+
+
+
+var endpoint = '/landpage/votespermovie/'
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        cLabels = data.tittles
+        cData = data.votes_counted
+        var ctx = document.getElementById('cCountedVotes').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: cLabels,
+                datasets: [{
+                    label: 'Quantidade de votos',
+                    data: cData,
+                    backgroundColor: 
+                        'rgba(54, 162, 235, 0.2)',
+                    borderColor: 
+                        'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }, 
+    error: function(error_data){
+        console.log(error_data)
+    }
+})
+
+
+    {% endblock %}
+</script>
+
+{% block content %}			
+
+
+
+<!-- Section One -->
+	<div class="wrapper style3">
+		<section class="container">
+			<div class="row double">
+				<div class="12u">
+					<header class="major">
+                        <h2>Curta Salto em Casa</h2>
+                    </header>
+                        <h2>Resultado dos Votos</h2>
+				</div>
+
+			</div>
+		</section>
+	</div>
+<!-- Section Two -->
+	<div class="wrapper style2">
+		<section class="container">
+				<header class="major">
+					<h2></h2>
+				</header>
+				<body>
+					<div class="row">
+
+						<div class="12u">
+                            
+                            <canvas id="cVotes" ></canvas>
+                        </div>
+                    </div>
+                    <div class="row">
+
+						<div class="12u">
+                        
+                            <canvas id="cCountedVotes" ></canvas>
+						</div>
+
+                    </div>
+                    
+                    <div class="row">
+
+						<div class="12u">
+                        
+                            <canvas id="cAddedVotes" ></canvas>
+						</div>
+
+                    </div>
+				</body>
+				<footer>
+				
+				</footer>
+		</section>
+	</div>
+</div>
+{% endblock %}
