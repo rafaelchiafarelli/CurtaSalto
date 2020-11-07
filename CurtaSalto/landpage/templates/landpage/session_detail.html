@@ -29,8 +29,26 @@
 				<div class="6u">
 					<h2>{{movie.tittle}}</h2>
 					<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
-					<div class="embed-container"><iframe src="https://www.youtube.com/embed/{{movie.youtube_link}}" frameborder="0" allowfullscreen=""></iframe></div>
+					{% if movie.tittle == "LOBOTOMIA" %}
+
+					<h3>Este filme apresentou problemas técnicos.</h3>
+
+					<p> O autor nos autorizou à disponibilizar um link de acesso no youtube para que você possa assistir. Não se esqueça de voltar para votar!</p>
+
+					<a href="https://youtu.be/TYUzHbk0z2Q" class="button alt">Assista no youtube!</a>
+
+					{% elif movie.tittle == "Ensaio sobre carros" %}
+
+                                        <h3>Este filme apresentou problemas técnicos.</h3>
+
+                                        <p> O autor nos autorizou à disponibilizar um link de acesso no youtube para que você possa assistir. Não se esqueça de voltar para votar!</p>
+
+                                        <a href="https://youtu.be/ckqnf6y-TJM" class="button alt">Assista no youtube!</a>
+				
+					{% else %}
+					<div class="embed-container"><iframe src="https://www.youtube.com/embed/{{movie.youtube_link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 					</iframe>
+					{% endif %}
 				</div>
 				<div class="6u">
 					<p>{{movie.synopse}}</p>

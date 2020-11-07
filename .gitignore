@@ -1,3 +1,12 @@
+CurtaSalto/CurtaSalto/media/
+CurtaSalto/landpage/migrations/
+*.save
+*.swp
+CurtaSalto.conf
+get-pip.py
+settings.py
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -26,6 +35,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

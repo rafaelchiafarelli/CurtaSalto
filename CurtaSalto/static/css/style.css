@@ -548,7 +548,6 @@
 				margin-bottom: 0.70em;
 				letter-spacing: 1px;
 				line-height: 1.4em;
-				text-transform: uppercase;
 				font-size: 1.8em;
 				font-weight: 400;
 				text-align: left;
@@ -557,7 +556,6 @@
 				.wrapper.style4 .major .byline {
 					letter-spacing: normal;
 					line-height: 1.6em;
-					text-transform: capitalize;
 					font-size: 1.4em;
 					text-align: left;
 				}
