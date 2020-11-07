@@ -386,9 +386,9 @@ def GetVotesGrouped(request):
     number_of_votes = []
     for film in tally:
         VotedFilm = EmbedddFilm.objects.get(film=film['vote'])
-
-        tittles.append(VotedFilm.film.__str__())
-        number_of_votes.append(film['n_vote'])
+        if VotedFilm.category == '0':
+            tittles.append(VotedFilm.film.__str__())
+            number_of_votes.append(film['n_vote'])
 
     final_tally['tittles'] = tittles
     final_tally['votes_counted'] = number_of_votes
@@ -403,8 +403,9 @@ def AllVotes(request):
     added_votes = []
     for film in tally:
         VotedFilm = EmbedddFilm.objects.get(film=film['vote'])
-        tittles.append(VotedFilm.film.__str__())
-        added_votes.append(film['sum_votes'])
+        if VotedFilm.category == '0':
+            tittles.append(VotedFilm.film.__str__())
+            added_votes.append(film['sum_votes'])
     final_tally['tittles'] = tittles
     final_tally['sum_votes'] = added_votes
     
@@ -416,9 +417,12 @@ def AvgVotes(request):
     tittles = []
     final_tally = {}
     for avg in avg_tally:
+
         VotedFilm = EmbedddFilm.objects.get(film=avg['vote'])
-        tittles.append(VotedFilm.film.__str__())
-        avereage.append(avg['avg_votes'])
+        
+        if VotedFilm.category == '0':
+            tittles.append(VotedFilm.film.__str__())
+            avereage.append(avg['avg_votes'])
 
     final_tally['tittles'] = tittles
     final_tally['avg'] = avereage
