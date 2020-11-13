@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, FileResponse
 from django.shortcuts import redirect
 from django.conf import settings as conf_settings
 from .models import UniqueLinks, Movie, EmbedddVideo, StartDate, Votes, TempUserID, EmbedddFilm
@@ -19,6 +19,8 @@ import json
 from django.core import serializers
 from django.db.models import Count, Sum, IntegerField, Avg
 from django.db.models.functions import Cast
+import math
+import csv
 
 # Create your views here.
 
@@ -413,6 +415,8 @@ def AllVotes(request):
 
 def AvgVotes(request):
     avg_tally = Votes.objects.values('vote').annotate(avg_votes = Avg(Cast('general_score', IntegerField()))).order_by('-avg_votes')
+    
+
     avereage = []
     tittles = []
     final_tally = {}
@@ -428,11 +432,46 @@ def AvgVotes(request):
     final_tally['avg'] = avereage
     return JsonResponse(final_tally, safe=False)
 
-
+def AvgVotePerUser(request):
+    tally = {}
+    return JsonResponse(tally,  safe=False)
 def votes(request):
-
-
     return render(request, 'landpage/voting_tally.html',{})
+
+def download_result(request):
+    """
+    #somatório dos votos
+    AllVotes = float(Votes.objects.all().count())
+    SumOfAllVotes = float(0)
+    for one_vote in Votes.objects.all():
+        SumOfAllVotes += float(one_vote.general_score)
+
+    #média aritmética
+    AvgVoting = float(SumOfAllVotes)/float(AllVotes)
+    
+    #desvio padrão
+    StdDeviation = float(0)
+    SquaredSum = float(0)
+    for one_vote in Votes.objects.all():
+        SquaredSum = (float(one_vote.general_score) - AvgVoting)*(float(one_vote.general_score) - AvgVoting)
+    StdDeviation = math.sqrt(SquaredSum/AllVotes)
+    """
+    with open('/home/rafael_chiafarelli/CurtaSalto/CurtaSalto/static/result.csv', "w") as csv_out:
+        for all_votes in Votes.objects.all().order_by('vote__tittle'):
+            csv_out.write("{};{}\r\n".format(all_votes.vote.tittle,all_votes.general_score))
+        
+        csv_out.close()
+        
+
+            
+    return FileResponse(open('/home/rafael_chiafarelli/CurtaSalto/CurtaSalto/static/result.csv', 'rb'))
+
+    
+    
+    
+    
+
+
 
 
 

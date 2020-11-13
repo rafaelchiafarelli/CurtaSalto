@@ -14,7 +14,7 @@ urlpatterns = [
     path('sessions/', views.session, name='session'),
     path('sessions/<int:selected_hall>', views.session_hall, name='session_hall'),
     path('sessions/watch/<int:selected_movie>', views.session_detail, name='session_detail'),
-    path('sessions/vote/<int:user>/<int:movie_id>', views.vote, name='session_detail'),
+    
     path('webinars/', views.webinar, name='webinar'),
     path('home/', views.index, name='home'),
     path('awards/', views.awards, name='awards'),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('voted/', views.AllVotes, name='all-voted'),
     path('avg_votes/', views.AvgVotes, name='avg-voted'),
     path('votes/', views.votes, name='votes'),
+    path('download_results/', views.download_result, name='download_results'),
     
 ]
 
